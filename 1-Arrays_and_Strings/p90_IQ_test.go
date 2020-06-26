@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestTableDriven(t *testing.T) {
+func TestIsUnique(t *testing.T) {
 	var tests = []struct {
 		chain string
 		expected bool
@@ -14,6 +14,25 @@ func TestTableDriven(t *testing.T) {
 
 	for _, test := range tests {
 		if isUnique(test.chain) != test.expected {
+			t.Errorf("Should return %t", test.expected)
+		}
+	}
+}
+
+func TestCheckPermutation(t *testing.T) {
+	var tests = []struct {
+		chain1 string
+		chain2 string
+		expected bool
+	} {
+		{"a", "ba", false},
+		{"kayak", "kayak", true},
+		{"Thomas", "samohT", true},
+		{"Thomas", "samoth", false},
+	}
+
+	for _, test := range tests {
+		if checkPermutation(test.chain1, test.chain2) != test.expected {
 			t.Errorf("Should return %t", test.expected)
 		}
 	}
