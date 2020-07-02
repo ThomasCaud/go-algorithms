@@ -63,3 +63,20 @@ func TestRemoveDuplicate(t *testing.T) {
 func TestRemoveDuplicateWithoutBuffer(t *testing.T) {
 	RemoveDuplicateTests(t, removeDuplicateWithoutBuffer)
 }
+
+func TestGetKToLast(t *testing.T) {
+	var head = node{value: 1, next: nil}
+	addNodes(&head, []int{2,3,4,5,6,7,8,9,10})
+
+	lastNode := getKToLast(&head, 0)
+	checkNodeValue(t, lastNode, 10)
+
+	lastNode = getKToLast(&head, 4)
+	checkNodeValue(t, lastNode, 6)
+
+	lastNode = getKToLast(&head, 789)
+	checkNodeValue(t, lastNode, 1)
+
+	lastNode = getKToLast(&head, -50)
+	checkNodeValue(t, lastNode, 10)
+}

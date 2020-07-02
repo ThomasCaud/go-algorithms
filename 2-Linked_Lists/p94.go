@@ -70,3 +70,43 @@ func removeDuplicateWithoutBuffer(n *node) {
 		n = n.next
 	}
 }
+
+// Q 2.2 - Return Kth to Last
+func getKToLast(n *node, k int) *node {
+	// first step: count number of element in the linked list
+	nbNodes := -1
+	list := n
+
+	for list != nil {
+		nbNodes++
+		list = list.next
+	}
+
+	stop := nbNodes - k
+	if stop < 0 {
+		stop = 0
+	}
+
+	if stop > nbNodes {
+		stop = nbNodes
+	}
+
+	// second step: iterate until being at Kth to last
+	for stop > 0 {
+		n = n.next
+		stop --
+	}
+	return n
+}
+
+// Q 2.2 - Return Kth to Last (recursive)
+func printKToLastRec(n *node, k int) int {
+	if n == nil {
+		return 0
+	}
+	i := printKToLastRec(n.next, k) + 1
+	if i == k {
+		fmt.Println(k, "th to the last node is", n.value)
+	}
+	return i
+}
