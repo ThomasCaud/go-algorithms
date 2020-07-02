@@ -16,11 +16,18 @@ func addNode(head *node, value int) {
 	n.next = &newNode
 }
 
+func addNodes(head *node, value []int) {
+	for _, v := range value {
+		addNode(head, v)
+	}
+}
+
 func displayList(n *node) {
 	for n != nil {
 		fmt.Print(" -> ", n.value)
 		n = n.next
 	}
+	fmt.Println("")
 }
 
 func contain(arr []int, value int) bool {
@@ -32,11 +39,12 @@ func contain(arr []int, value int) bool {
 	return false
 }
 
+// Q 2.1 - Remove Dups
 func removeDuplicate(n *node) {
 	values := []int{}
 	var previous *node
 	for n != nil {
-		if previous != nil && contain(values, n.value) && n.next != nil {
+		if previous != nil && contain(values, n.value) {
 			previous.next = n.next
 		} else {
 			values = append(values, n.value)
@@ -46,10 +54,10 @@ func removeDuplicate(n *node) {
 	}
 }
 
-/*
+// Q 2.1 - Remove Dups (follow up)
 func removeDuplicateWithoutBuffer(n *node) {
 	for n != nil {
-		var previous *node
+		var previous *node = n
 		nextNodes := n.next
 		for nextNodes != nil  {
 			if nextNodes.value == n.value {
@@ -61,4 +69,4 @@ func removeDuplicateWithoutBuffer(n *node) {
 
 		n = n.next
 	}
-}*/
+}
