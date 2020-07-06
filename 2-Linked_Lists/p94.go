@@ -160,3 +160,49 @@ func deleteMiddleNode(h *head) {
 	}
 	previousNode.next = node.next
 }
+
+// Q 2.4
+func partition(h *head, value int) {
+	var p1, p2, headP1, headP2 *node
+	n := h.h
+
+	for n != nil {
+		if n.value < value {
+			if p1 == nil {
+				p1 = n
+				headP1 = n
+			} else {
+				p1.next = n
+				p1 = p1.next
+			}
+		} else {
+			if p2 == nil {
+				p2 = n
+				headP2 = n
+			} else {
+				p2.next = n
+				p2 = p2.next
+			}
+		}
+		n = n.next
+	}
+
+	// Remove old queue at the end of the partition
+	p2.next = nil
+
+	// Reallocate memory to avoid infinite loop
+	newHeadNode := node{value: headP1.value, next: nil}
+	h.h = &newHeadNode
+
+	// Concat partitions
+	headP1 = headP1.next
+	for headP1 != nil {
+		addNode(h.h, headP1.value)
+		headP1 = headP1.next
+	}
+
+	for headP2 != nil {
+		addNode(h.h, headP2.value)
+		headP2 = headP2.next
+	}
+}

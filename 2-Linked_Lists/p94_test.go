@@ -40,22 +40,32 @@ func TestEquals(t *testing.T) {
 }
 
 func TestAddNode(t *testing.T) {
-	var head = node{value: 1, next: nil}
-	addNode(&head, 2)
-	addNode(&head, 3)
+	var n = node{value: 1, next: nil}
+	addNode(&n, 2)
+	addNode(&n, 3)
 
-	checkNextExists(t, &head)
+	checkNextExists(t, &n)
 
-	if head.next.value != 2 {
+	if n.next.value != 2 {
 		t.Errorf("Next head should be equal to 2")
 	}
-	head = *head.next
-	if head.next == nil || head.next.value != 3 {
+	n = *n.next
+	if n.next == nil || n.next.value != 3 {
 		t.Errorf("Error with last node")
 	}
+
+	// Test if head is nil
+	// var h = head{h: nil}
+	// var test = head{h: &n}
+	// h.h = nil
+	// addNode(h.h, 1)
+	// checkNodeValue(t, h.h, 1)
 }
 
 func checkNodeValue(t *testing.T, n *node, expected int) {
+	if n == nil {
+		t.Errorf("Nil node")
+	}
 	if n.value != expected {
 		t.Errorf("Expected value %d, got %d", expected, n.value)
 	}
@@ -125,6 +135,24 @@ func TestDeleteMiddleNode(t *testing.T) {
 
 	if !equals(&h1, &h2) {
 		t.Errorf("DeleteMiddleNode does not work as expected")
+		displayList(h1.h)
+		displayList(h2.h)
+	}
+}
+
+func TestPartition(t *testing.T) {
+	var n = node{value: 3, next: nil}
+	addNodes(&n, []int{5,8,5,10,2,1})
+	var h1 = head{h: &n}
+
+	partition(&h1, 5)
+
+	var expected = node{value: 3, next: nil}
+	addNodes(&expected, []int{2,1,5,8,5,10})
+	var h2 = head{h: &expected}
+
+	if !equals(&h1, &h2) {
+		t.Errorf("TestPartition does not work as expected")
 		displayList(h1.h)
 		displayList(h2.h)
 	}
