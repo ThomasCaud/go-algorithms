@@ -8,6 +8,37 @@ func checkNextExists(t *testing.T, n *node) {
 	}
 }
 
+func TestGetSize(t *testing.T) {
+	var head = head{h: nil}
+	if getSize(&head) != 0 {
+		t.Errorf("GetSize should return 0")
+	}
+
+	n := node{value: 1, next: nil}
+	head.h = &n
+	if getSize(&head) != 1 {
+		t.Errorf("GetSize should return 1, returned %d", getSize(&head))
+	}
+}
+
+func TestEquals(t *testing.T) {
+	var n1 = node{value: 1, next: nil}
+	var h1 = head{h: &n1}
+	addNodes(&n1, []int{2,3,4,5})
+
+	var n2 = node{value: 1, next: nil}
+	var h2 = head{h: &n2}
+
+	if equals(&h1, &h2) {
+		t.Errorf("Equals should return false")
+	}
+
+	addNodes(&n2, []int{2,3,4,5})
+	if !equals(&h1, &h2) {
+		t.Errorf("Equals should return true")
+	}
+}
+
 func TestAddNode(t *testing.T) {
 	var head = node{value: 1, next: nil}
 	addNode(&head, 2)
@@ -79,4 +110,22 @@ func TestGetKToLast(t *testing.T) {
 
 	lastNode = getKToLast(&head, -50)
 	checkNodeValue(t, lastNode, 10)
+}
+
+func TestDeleteMiddleNode(t *testing.T) {
+	var n = node{value: 1, next: nil}
+	addNodes(&n, []int{2,3})
+	var h1 = head{h: &n}
+
+	deleteMiddleNode(&h1)
+
+	var expected = node{value: 1, next: nil}
+	addNodes(&expected, []int{3})
+	var h2 = head{h: &expected}
+
+	if !equals(&h1, &h2) {
+		t.Errorf("DeleteMiddleNode does not work as expected")
+		displayList(h1.h)
+		displayList(h2.h)
+	}
 }

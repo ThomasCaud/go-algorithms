@@ -1,10 +1,15 @@
 package main
 
 import "fmt"
+import "math"
 
 type node struct {
 	value int
 	next *node
+}
+
+type head struct {
+	h *node
 }
 
 func addNode(head *node, value int) {
@@ -13,6 +18,7 @@ func addNode(head *node, value int) {
 		n = n.next
 	}
 	var newNode = node{value: value, next: nil}
+
 	n.next = &newNode
 }
 
@@ -30,6 +36,16 @@ func displayList(n *node) {
 	fmt.Println("")
 }
 
+func getSize(list *head) int {
+	size := 0
+	n := list.h
+	for n != nil {
+		size++
+		n = n.next
+	}
+	return size
+}
+
 func contain(arr []int, value int) bool {
 	for _, v := range arr {
 		if v == value {
@@ -37,6 +53,21 @@ func contain(arr []int, value int) bool {
 		}
 	}
 	return false
+}
+
+func equals(h1 *head, h2 *head) bool {
+	n1 := h1.h
+	n2 := h2.h
+
+	for n1 != nil && n2 != nil {
+		if (n1.value != n2.value) {
+			return false
+		}
+		n1 = n1.next
+		n2 = n2.next
+	}
+
+	return n1 == nil && n2 == nil
 }
 
 // Q 2.1 - Remove Dups
@@ -109,4 +140,23 @@ func printKToLastRec(n *node, k int) int {
 		fmt.Println(k, "th to the last node is", n.value)
 	}
 	return i
+}
+
+// Q 2.3
+func deleteMiddleNode(h *head) {
+	size := getSize(h)
+	if size < 3 {
+		// there is no middle
+		return
+	}
+	middle := int(math.Round(float64(size) / 2))
+
+	var previousNode, node *node
+	node = h.h
+
+	for i := 0 ; i < middle - 1 ; i++ {
+		previousNode = node
+		node = node.next
+	}
+	previousNode.next = node.next
 }
