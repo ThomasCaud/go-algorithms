@@ -37,3 +37,21 @@ func TestCheckPermutation(t *testing.T) {
 		}
 	}
 }
+
+func TestURLify(t *testing.T) {
+	var tests = []struct {
+		chain1 string
+		expected string
+	} {
+		{"a","a"},
+		{"a a", "a%20a"},
+		{"a ", "a"},
+		{"a %20", "a%20%20"},
+	}
+
+	for _, test := range tests {
+		if URLify(test.chain1) != test.expected {
+			t.Errorf("Should return %s, %s returned", test.expected, URLify(test.chain1))
+		}
+	}
+}
