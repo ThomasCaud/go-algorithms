@@ -191,18 +191,13 @@ func partition(h *head, value int) {
 	p2.next = nil
 
 	// Reallocate memory to avoid infinite loop
-	newHeadNode := node{value: headP1.value, next: nil}
+	newHeadNode := node{value: headP1.value, next: headP1.next}
 	h.h = &newHeadNode
 
 	// Concat partitions
 	headP1 = headP1.next
-	for headP1 != nil {
-		addNode(h.h, headP1.value)
+	for headP1.next != nil {
 		headP1 = headP1.next
 	}
-
-	for headP2 != nil {
-		addNode(h.h, headP2.value)
-		headP2 = headP2.next
-	}
+	headP1.next = headP2
 }
