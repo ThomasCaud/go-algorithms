@@ -240,3 +240,24 @@ func sumListsReverse(h1 *head, h2 *head) *head {
 
 	return &h
 }
+
+func reverse(list *head) *head {
+	n := list.h
+	var newNode *node
+
+	for n != nil {
+		oldNode := newNode
+		newNode = &node{value: n.value, next: oldNode}
+		n = n.next
+	}
+
+	return &head{h: newNode}
+}
+
+// Q2.6
+// Optimization: not necessary to loop on all the linked list
+// We could stop at half of it
+func palindrome(list *head) bool {
+	reversedList := reverse(list)
+	return equals(list, reversedList)
+}

@@ -179,3 +179,27 @@ func TestSumListsReverse(t *testing.T) {
 		displayList(res.h)
 	}
 }
+
+func TestReverse(t* testing.T) {
+	h := createHead([]int{1,2,3,4})
+	expected := createHead([]int{4,3,2,1})
+
+	if !equals(reverse(h), expected) {
+		t.Errorf("Reverse does not work as expected")
+		displayList(expected.h)
+		displayList(reverse(h).h)
+	}
+}
+
+func TestPalindrome(t *testing.T) {
+	h := createHead([]int{1,2,3,4})
+
+	if palindrome(h) {
+		t.Errorf("Palindrome does not work as expected")
+	}
+
+	h = createHead([]int{1,2,3,2,1})
+	if !palindrome(h) {
+		t.Errorf("Palindrome does not work as expected")
+	}
+}
