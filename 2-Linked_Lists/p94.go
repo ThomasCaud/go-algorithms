@@ -70,6 +70,14 @@ func equals(h1 *head, h2 *head) bool {
 	return n1 == nil && n2 == nil
 }
 
+func createHead(arr []int) *head {
+	var n = node{value: arr[0], next: nil}
+	addNodes(&n, arr[1:])
+	var h = head{h: &n}
+
+	return &h
+}
+
 // Q 2.1 - Remove Dups
 func removeDuplicate(n *node) {
 	values := []int{}
@@ -200,4 +208,35 @@ func partition(h *head, value int) {
 		headP1 = headP1.next
 	}
 	headP1.next = headP2
+}
+
+// For Q2.5 - 1->2->3 return 321
+func sumListAux(h *head) int {
+	total := 0
+	coeff := 1
+
+	n := h.h
+	for n != nil {
+		total += n.value * coeff
+		coeff *= 10
+		n = n.next
+	}
+
+	return total
+}
+
+// Q2.5
+func sumListsReverse(h1 *head, h2 *head) *head {
+	total := sumListAux(h1) + sumListAux(h2)
+	divider := 1
+
+	var n = node{value: total % 10, next: nil}
+	var h = head{h: &n}
+
+	for divider * 10 < total {
+		divider *= 10
+		addNode(&n, int(math.Round(float64(total) / float64(divider))) % 10)
+	}
+
+	return &h
 }

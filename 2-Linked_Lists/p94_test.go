@@ -144,7 +144,6 @@ func TestPartition(t *testing.T) {
 	var n = node{value: 3, next: nil}
 	addNodes(&n, []int{5,8,5,10,2,1})
 	var h1 = head{h: &n}
-
 	partition(&h1, 5)
 
 	var expected = node{value: 3, next: nil}
@@ -155,5 +154,28 @@ func TestPartition(t *testing.T) {
 		t.Errorf("TestPartition does not work as expected")
 		displayList(h1.h)
 		displayList(h2.h)
+	}
+}
+
+func TestSumListAux(t *testing.T) {
+	var n = node{value: 7, next: nil}
+	addNodes(&n, []int{1,6})
+	var h = head{h: &n}
+
+	if sumListAux(&h) != 617 {
+		t.Errorf("sumListAux does not work as expected")
+	}
+}
+
+func TestSumListsReverse(t *testing.T) {
+	h1 := createHead([]int{7,1,6})
+	h2 := createHead([]int{5,9,2})
+	expected := createHead([]int{2,1,9})
+	res := sumListsReverse(h1, h2)
+
+	if !equals(expected, res) {
+		t.Errorf("SumListsReverse does not work as expected")
+		displayList(expected.h)
+		displayList(res.h)
 	}
 }
