@@ -4,7 +4,7 @@ import "testing"
 
 func TestIsUnique(t *testing.T) {
 	var tests = []struct {
-		chain string
+		chain    string
 		expected bool
 	}{
 		{"abcde", true},
@@ -21,10 +21,10 @@ func TestIsUnique(t *testing.T) {
 
 func TestCheckPermutation(t *testing.T) {
 	var tests = []struct {
-		chain1 string
-		chain2 string
+		chain1   string
+		chain2   string
 		expected bool
-	} {
+	}{
 		{"a", "ba", false},
 		{"kayak", "kayak", true},
 		{"Thomas", "samohT", true},

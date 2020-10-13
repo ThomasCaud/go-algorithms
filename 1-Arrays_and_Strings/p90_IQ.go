@@ -1,15 +1,15 @@
 package main
 
 func isUnique(s string) bool {
-	char := make(map[rune]bool);
+	char := make(map[rune]bool)
 	for _, c := range s {
-		_, ok := char[c];
+		_, ok := char[c]
 		if ok {
 			return false
 		}
 		char[c] = true
 	}
-	return true;
+	return true
 }
 
 func checkPermutation(s1 string, s2 string) bool {
@@ -17,9 +17,9 @@ func checkPermutation(s1 string, s2 string) bool {
 		return false
 	}
 
-	runes := []rune(s1);
-	for i := 0 ; i < len(runes) ; i++ {
-		c2 := len(s2) - 1 - i;
+	runes := []rune(s1)
+	for i := 0; i < len(runes); i++ {
+		c2 := len(s2) - 1 - i
 		if s1[i] != s2[c2] {
 			return false
 		}
